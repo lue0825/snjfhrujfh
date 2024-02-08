@@ -1,4 +1,4 @@
-﻿import qs from "querystring";
+import qs from "querystring";
 import mTransKey from "./transkey.js";
 import crypto from "crypto";
 import axios from "axios";
@@ -187,14 +187,19 @@ class Cultureland {
     };
 
     async login(id, password) {
-        this.jar.setCookieSync("KeepLoginConfig=sd_" + crypto.randomBytes(4).toString("hex"), "https://m.cultureland.co.kr");
+        console.log(1)
+        this.jar.setCookieSync("KeepLoginConfig=YbSAHfn6443Is1Fm22nGtFasBLcIw9okrYfgRqYx8Jv2HcQJyn8bPMXFxOPijMwm", "https://m.cultureland.co.kr");
         const transKey = new mTransKey();
         await transKey.getServletData(this.jar);
         await transKey.getKeyData(this.jar);
+        console.log(2)
 
         const keypad = await transKey.createKeypad(this.jar, "qwerty", "passwd", "passwd", "password");
+        console.log(3)
         const skipData = await keypad.getSkipData();
+        console.log(4)
         const encryptedPassword = keypad.encryptPassword(password, skipData);
+        console.log(5)
         const requestBody = qs.stringify({
             agentUrl: "",
             returnUrl: "",
@@ -215,6 +220,7 @@ class Cultureland {
             transkey_passwd: encryptedPassword,
             transkey_HM_passwd: transKey.crypto.hmacDigest(encryptedPassword)
         });
+        console.log(6)
         const loginRequest = await this.client.post("https://m.cultureland.co.kr/mmb/loginProcess.do", requestBody, {
             headers: {
                 "Referer": "https://m.cultureland.co.kr/mmb/loginMain.do"
@@ -222,6 +228,7 @@ class Cultureland {
             maxRedirects: 0,
             validateStatus: status => status === 302
         }).catch(() => { throw new Error("ERR_LOGIN_FAILED"); });
+        console.log(7)
         if (loginRequest.headers["location"] === "https://m.cultureland.co.kr/cmp/authConfirm.do") throw new Error("ERR_LOGIN_RESTRICTED");
         return true;
     };
