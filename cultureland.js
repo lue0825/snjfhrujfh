@@ -117,6 +117,7 @@ class Cultureland {
             validateStatus: status => status === 302
         }).catch(() => { throw new Error("ERR_CHARGE_FAILED") });
         const chargeResult = await this.client.get("https://m.cultureland.co.kr/" + chargeRequest.headers["location"]).then(res => res.data);
+        console.log(chargeResult)
         const chargeData = ((chargeResult||'').split("<tbody>")[1]||'').split("<td>");
         console.log(chargeData)
         const reason = (chargeData[3]||'').split("</td>")[0].replace(/<\/?[\d\w\s='#]+>/g, "");
