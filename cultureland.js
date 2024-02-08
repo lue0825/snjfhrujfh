@@ -231,6 +231,8 @@ class Cultureland {
             validateStatus: status => status === 302
         }).catch(() => { throw new Error("ERR_LOGIN_FAILED"); });
         console.log(7)
+        const html__ = await this.client.get("https://m.cultureland.co.kr/index.do").then(res => res.data);
+        console.log(html__)
         if (loginRequest.headers["location"] === "https://m.cultureland.co.kr/cmp/authConfirm.do") throw new Error("ERR_LOGIN_RESTRICTED");
         return true;
     };
