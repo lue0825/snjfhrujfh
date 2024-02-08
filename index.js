@@ -137,7 +137,7 @@ app.post("/charge", async function (req, res) {
     const client = new Cultureland();
 
     const login = await client.login(id.trim(), password.trim()).catch(err => err);
-
+    console.log(login)
     if (login.message) {
         console.log(`${(token||'').split("-")[0]} | Login - ${Date.now() - req.start}ms - ${login.message}`);
         return res.status(500).json({
@@ -159,7 +159,7 @@ app.post("/charge", async function (req, res) {
     }
     console.log("login success")
     const charge = await client.charge(pinResult.pinParts, false).catch(err => err);
-
+    console.log(charge)
     if (charge.message) {
         console.log(`${(token||'').split("-")[0]} | ChargeMessage - ${Date.now() - req.start}ms - ${charge.message}`);
         return res.status(500).json({
