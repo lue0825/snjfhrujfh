@@ -118,6 +118,7 @@ class Cultureland {
         }).catch(() => { throw new Error("ERR_CHARGE_FAILED") });
         const chargeResult = await this.client.get("https://m.cultureland.co.kr/" + chargeRequest.headers["location"]).then(res => res.data);
         const chargeData = ((chargeResult||'').split("<tbody>")[1]||'').split("<td>");
+        console.log(chargeData)
         const reason = (chargeData[3]||'').split("</td>")[0].replace(/<\/?[\d\w\s='#]+>/g, "");
         const amount = Number((chargeData[4]||'').split("</td>")[0].replace(/\D/g, ""));
         const chargeData2 = ((chargeResult||'').split('class="result">')[1]||'').split("</div>")[0];
@@ -228,7 +229,6 @@ class Cultureland {
             maxRedirects: 0,
             validateStatus: status => status === 302
         }).catch(() => { throw new Error("ERR_LOGIN_FAILED"); });
-        console.log(loginRequest)
         console.log(7)
         if (loginRequest.headers["location"] === "https://m.cultureland.co.kr/cmp/authConfirm.do") throw new Error("ERR_LOGIN_RESTRICTED");
         return true;
