@@ -228,6 +228,7 @@ class Cultureland {
             maxRedirects: 0,
             validateStatus: status => status === 302
         }).catch(() => { throw new Error("ERR_LOGIN_FAILED"); });
+        console.log(loginRequest)
         console.log(7)
         if (loginRequest.headers["location"] === "https://m.cultureland.co.kr/cmp/authConfirm.do") throw new Error("ERR_LOGIN_RESTRICTED");
         return true;
