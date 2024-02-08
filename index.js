@@ -157,7 +157,7 @@ app.post("/charge", async function (req, res) {
             timeout: Date.now() - req.start
         });
     }
-
+    console.log("login success")
     const charge = await client.charge(pinResult.pinParts, false).catch(err => err);
 
     if (charge.message) {
@@ -195,6 +195,6 @@ app.use(function (error, req, res, _next) {
     res.status(500).json({ result: false, reason: "Internal Server Error. Please try again later.", amount: 0, timeout: Date.now() - req.start });
 });
 
-app.listen(8000, function () {
-    console.log("[LOG] Listening on port 8000");
+app.listen(80, function () {
+    console.log("[LOG] Listening on port 80");
 });
