@@ -195,6 +195,6 @@ app.use(function (error, req, res, _next) {
     res.status(500).json({ result: false, reason: "Internal Server Error. Please try again later.", amount: 0, timeout: Date.now() - req.start });
 });
 
-app.listen(80, function () {
-    console.log("[LOG] Listening on port 80");
+app.listen(8000, function () {
+    console.log("[LOG] Listening on port 8000");
 });
